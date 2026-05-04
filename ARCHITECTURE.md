@@ -36,22 +36,14 @@ Database (SQLite)
 
 ## 4. Database Schema
 
-### Users Table
-- id (primary key)
-- name
-- email
-- password
-- role (employee/manager)
+Database Schema (SQLite) 
+The project uses SQLite (better-sqlite3) as the database engine.
 
-### Leaves Table
-- id (primary key)
-- user_id (foreign key)
-- start_date
-- end_date
-- reason
-- status (pending/approved/rejected)
+It contains 3 main tables:
 
----
+- users → Stores employees and managers
+- leave_types → Stores leave categories and yearly quotas
+- leave_requests → Stores all leave applications with approval workflow
 
 ## 5. API Endpoints
 
