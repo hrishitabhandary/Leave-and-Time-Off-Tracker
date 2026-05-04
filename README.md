@@ -103,9 +103,9 @@ Example endpoints:
 git clone https://github.com/your-username/leave-tracker.git
 cd leave-tracker
 
-# -------------------------
+
 # 2. Backend setup
-# -------------------------
+
 cd Backend
 npm install
 node server.js
@@ -114,9 +114,9 @@ node server.js
 # http://localhost:5000 
 
 
-# -------------------------
+
 # 3. Frontend setup (open new terminal)
-# -------------------------
+
 cd Frontend
 npm install
 npm run dev
