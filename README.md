@@ -99,34 +99,41 @@ Example endpoints:
 ---
 
 
+
 # 1. Clone repository
 git clone https://github.com/your-username/leave-tracker.git
 cd leave-tracker
 
-
-# 2. Backend setup
-
+# -------------------------
+# 2. BACKEND SETUP
+# -------------------------
 cd Backend
-npm install
+
+# Install backend dependencies
+npm install express cors sqlite3 nodemon
+
+# Run backend server
 node server.js
+# OR (if using nodemon)
+npx nodemon server.js
 
 # Backend runs on:
-# http://localhost:5000 
+# http://localhost:5000
 
 
-
-# 3. Frontend setup (open new terminal)
-
+# -------------------------
+# 3. FRONTEND SETUP (open new terminal)
+# -------------------------
 cd Frontend
-npm install
+
+# Install frontend dependencies
+npm install react react-dom react-router-dom axios
+
+# Install UI framework (if used)
+npm install tailwindcss postcss autoprefixer
+
+# Start frontend
 npm run dev
 
 # Frontend runs on:
-# http://localhost:5173 
-
-
-# Test backend APIs
-GET http://localhost:5000/api/users
-GET http://localhost:5000/api/leaves
-POST http://localhost:5000/api/leaves
-PUT http://localhost:5000/api/leaves/:id
+# http://localhost:5173
