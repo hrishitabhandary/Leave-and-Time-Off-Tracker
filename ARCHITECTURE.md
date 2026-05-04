@@ -100,8 +100,8 @@ The database is pre-seeded using seed.js with realistic sample data:
 
 ## 7. Key Features
 
-- User authentication
-- Role-based access (Employee / Manager)
+- User authentication (Not yet implemented)
+- Role-based access (Employee / Manager) (Not yet implemented)
 - Leave request submission
 - Approval / rejection workflow
 - Simple dashboard view
