@@ -45,9 +45,68 @@ It contains 3 main tables:
 - leave_types → Stores leave categories and yearly quotas
 - leave_requests → Stores all leave applications with approval workflow
 
+Tables Structure
+1. Users Table
+   CREATE TABLE users (
+  id TEXT PRIMARY KEY,
+  name TEXT NOT NULL,
+  email TEXT UNIQUE NOT NULL,
+  role TEXT NOT NULL CHECK(role IN ('employee', 'manager')),
+  department TEXT NOT NULL
+);
+2. Leave Types Table
+   CREATE TABLE leave_types (
+  id TEXT PRIMARY KEY,
+  name TEXT NOT NULL,
+  yearly_quota INTEGER NOT NULL
+
+);
+3. Leave Requests Table
+CREATE TABLE leave_requests (
+  id TEXT PRIMARY KEY,
+  user_id TEXT NOT NULL,
+  manager_id TEXT NOT NULL,
+  leave_type_id TEXT NOT NULL,
+  start_date TEXT NOT NULL,
+  end_date TEXT NOT NULL,
+  working_days INTEGER NOT NULL,
+  reason TEXT NOT NULL,
+  status TEXT DEFAULT 'pending'
+    CHECK(status IN ('pending', 'approved', 'rejected')),
+  manager_comment TEXT,
+  created_at TEXT DEFAULT (datetime('now')),
+  updated_at TEXT DEFAULT (datetime('now')),
+
+  FOREIGN KEY (user_id) REFERENCES users(id),
+  FOREIGN KEY (manager_id) REFERENCES users(id),
+  FOREIGN KEY (leave_type_id) REFERENCES leave_types(id)
+); 
+
+4.Seed Data
+The database is pre-seeded using seed.js with realistic sample data:
+
+- 20 Employees
+- 3 Managers
+- 4 Leave Types:
+  - Sick (10 days/year)
+  - Casual (12 days/year)
+  - WFH (24 days/year)
+  - Comp-off (6 days/year)
+
+- 25–30 Leave Requests including:
+  - Pending requests
+  - Approved requests
+  - Rejected requests
+  - Different date ranges and departments
+  5.  Seeder Script Behavior
+  - Clears existing tables before inserting fresh data
+- Generates UUIDs for all records
+- Ensures relational consistency between users, managers, and leaves
+- Populates realistic HR workflow scenarios
 ## 5. API Endpoints
 
-### Auth
+
+### Auth (Role Based Access Control RBAC not implemented due to short of time)
 - POST /login
 - POST /signup
 
