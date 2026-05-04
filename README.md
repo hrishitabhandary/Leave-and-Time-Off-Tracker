@@ -1,16 +1,100 @@
-# React + Vite
+# 🗂️ Leave and Time Off Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack Leave Management System that allows employees to apply for leave, managers to approve/reject requests, and teams to track availability via a calendar view.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 Live Demo
+👉 Video Demo: https://youtu.be/sb4VBt4bbKs
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🛠️ Tech Stack
 
-## Expanding the ESLint configuration
+### Frontend:
+- React.js
+- Tailwind CSS
+- React Router
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Backend:
+- Node.js
+- Express.js
+- REST APIs
+
+### Database:
+- SQLite
+
+---
+
+## ✨ Core Functionalities
+
+### 1. Leave Application Form
+- Leave types: **Sick / Casual / Work From Home / Comp-off**
+- Fields:
+  - Start date
+  - End date
+  - Reason
+  - Manager selection (3 predefined managers)
+- Auto-calculates working days (excludes weekends)
+- All inputs validated on server-side (no trust in client data)
+
+---
+
+### 2. Employee Dashboard
+- Displays:
+  - Leave balance per type
+  - Leave history
+  - Pending requests
+- Filters:
+  - Status (Pending / Approved / Rejected)
+  - Date range filtering
+
+---
+
+### 3. Manager View
+- Shows all leave requests assigned to the manager
+- Actions:
+  - Approve leave
+  - Reject leave (with optional comment)
+- Audit trail includes:
+  - Timestamp
+  - Manager name who approved/rejected
+
+---
+
+### 4. Team Calendar
+- Visual calendar of leaves
+- Shows who is on leave this week and next week
+- Filter by leave type
+- Helps avoid scheduling conflicts and overlaps
+
+---
+
+### 5. REST API
+- Clean RESTful API design
+- Fully independent of frontend (works with Postman/cURL)
+- Proper HTTP status codes
+- Server-side validation enforced for all requests
+
+Example endpoints:
+- `GET /api/users`
+- `GET /api/leaves`
+- `POST /api/leaves`
+- `PUT /api/leaves/:id`
+
+---
+
+### 6. Database Design
+- SQLite database with clean schema design:
+  - Users table (employees & managers)
+  - Leave requests table
+  - Leave types with yearly quotas
+  - Audit trail for approvals/rejections
+
+### Seed Data:
+- 20 users
+- 3 managers
+- 25–30 realistic leave requests with mixed statuses and date ranges
+
+---
+
