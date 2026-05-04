@@ -47,40 +47,8 @@ It contains 3 main tables:
 
 Tables Structure
 1. Users Table
-   CREATE TABLE users (
-  id TEXT PRIMARY KEY,
-  name TEXT NOT NULL,
-  email TEXT UNIQUE NOT NULL,
-  role TEXT NOT NULL CHECK(role IN ('employee', 'manager')),
-  department TEXT NOT NULL
-);
 2. Leave Types Table
-   CREATE TABLE leave_types (
-  id TEXT PRIMARY KEY,
-  name TEXT NOT NULL,
-  yearly_quota INTEGER NOT NULL
-
-);
 3. Leave Requests Table
-CREATE TABLE leave_requests (
-  id TEXT PRIMARY KEY,
-  user_id TEXT NOT NULL,
-  manager_id TEXT NOT NULL,
-  leave_type_id TEXT NOT NULL,
-  start_date TEXT NOT NULL,
-  end_date TEXT NOT NULL,
-  working_days INTEGER NOT NULL,
-  reason TEXT NOT NULL,
-  status TEXT DEFAULT 'pending'
-    CHECK(status IN ('pending', 'approved', 'rejected')),
-  manager_comment TEXT,
-  created_at TEXT DEFAULT (datetime('now')),
-  updated_at TEXT DEFAULT (datetime('now')),
-
-  FOREIGN KEY (user_id) REFERENCES users(id),
-  FOREIGN KEY (manager_id) REFERENCES users(id),
-  FOREIGN KEY (leave_type_id) REFERENCES leave_types(id)
-); 
 
 4.Seed Data
 The database is pre-seeded using seed.js with realistic sample data:
