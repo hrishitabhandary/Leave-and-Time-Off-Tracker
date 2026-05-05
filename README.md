@@ -4,7 +4,6 @@ A full-stack Leave Management System that allows employees to apply for leave, m
 
 ---
 
-## 🚀 Live Demo
 👉 Video Demo: https://youtu.be/n8-bcNR53DA
 ---
 
