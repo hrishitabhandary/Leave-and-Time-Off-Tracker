@@ -153,5 +153,5 @@ Centered max-width layout for desktop.
 | Dark Mode UI | ✅ Claude applied | Color choices mine |
 | Git & Docs | ✅ Claude guided | Written by me |
 
-**Total prompts used:** ~40+ across the 3 hour session
+**Total prompts used:** ~20+ across the 3 hour session
 **Tool used:** Claude (claude.ai) — chat interface
