@@ -1,118 +1,138 @@
-# Leave and Time Off Tracker - Architecture
+# 🏗️ Architecture — Leave & Time Off Tracker
 
 ## 1. Overview
-This is a full-stack Leave and Time Off Tracking system that allows employees to apply for leave and managers to approve or reject requests.
-
-The system is designed using a simple, scalable architecture focusing on separation of frontend, backend, and database layers.
+A full-stack Leave and Time Off Tracking system where employees can apply 
+for leave and managers can approve or reject requests. Built in under 3 hours 
+using AI-assisted development with Claude.
 
 ---
 
 ## 2. Tech Stack
 
 ### Frontend
-- React.js
-- Bootstrap / CSS
-- React Router
+- React.js (Vite)
+- Tailwind CSS v4
+- React Router DOM
 
 ### Backend
 - Node.js
 - Express.js
-- REST APIs
+- REST API
 
 ### Database
-- SQLite (local file-based database)
+- SQLite via better-sqlite3 (file-based, zero config)
 
 ---
 
 ## 3. System Architecture
 
-Frontend (React)
-    ↓ API Calls
-Backend (Express Server)
-    ↓
-Database (SQLite)
+```text
+Browser (React + Vite)
+        ↓ HTTP fetch()
+Express Server (Node.js) → Port 5000
+        ↓
+SQLite Database (leave_tracker.db)
+```
+
+No auth layer — user switching is simulated via dropdown 
+for demo purposes. JWT + role-based auth would be added in production.
 
 ---
 
 ## 4. Database Schema
 
-Database Schema (SQLite) 
-The project uses SQLite (better-sqlite3) as the database engine.
+### users
+| Column | Type | Notes |
+|---|---|---|
+| id | TEXT | UUID primary key |
+| name | TEXT | Full name |
+| email | TEXT | Unique |
+| role | TEXT | 'employee' or 'manager' |
+| department | TEXT | Engineering, Design, Operations |
 
-It contains 3 main tables:
+### leave_types
+| Column | Type | Notes |
+|---|---|---|
+| id | TEXT | UUID primary key |
+| name | TEXT | Sick, Casual, WFH, Comp-off |
+| yearly_quota | INTEGER | Max days per year |
 
-- users → Stores employees and managers
-- leave_types → Stores leave categories and yearly quotas
-- leave_requests → Stores all leave applications with approval workflow
+### leave_requests
+| Column | Type | Notes |
+|---|---|---|
+| id | TEXT | UUID primary key |
+| user_id | TEXT | FK → users |
+| manager_id | TEXT | FK → users |
+| leave_type_id | TEXT | FK → leave_types |
+| start_date | TEXT | YYYY-MM-DD |
+| end_date | TEXT | YYYY-MM-DD |
+| working_days | INTEGER | Weekends excluded |
+| reason | TEXT | Employee's reason |
+| status | TEXT | pending/approved/rejected |
+| manager_comment | TEXT | Optional manager note |
+| created_at | TEXT | Timestamp |
+| updated_at | TEXT | Timestamp |
 
-Tables Structure
-1. Users Table
-2. Leave Types Table
-3. Leave Requests Table
+---
 
-4.Seed Data
-The database is pre-seeded using seed.js with realistic sample data:
-
-- 20 Employees
-- 3 Managers
-- 4 Leave Types:
-  - Sick (10 days/year)
-  - Casual (12 days/year)
-  - WFH (24 days/year)
-  - Comp-off (6 days/year)
-
-- 25–30 Leave Requests including:
-  - Pending requests
-  - Approved requests
-  - Rejected requests
-  - Different date ranges and departments
-  5.  Seeder Script Behavior
-  - Clears existing tables before inserting fresh data
-- Generates UUIDs for all records
-- Ensures relational consistency between users, managers, and leaves
-- Populates realistic HR workflow scenarios
 ## 5. API Endpoints
 
-
-### Auth (Role Based Access Control RBAC not implemented due to short of time)
-- POST /login
-- POST /signup
+### Users
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | /api/users | Get all users |
+| GET | /api/users/managers | Get managers only |
+| GET | /api/users/:id | Get single user |
+| GET | /api/users/:id/balance | Get leave balance per type |
 
 ### Leaves
-- POST /leave → create leave request
-- GET /leaves → fetch all leaves
-- PUT /leave/:id → update leave status
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | /api/leaves | Get all leaves (filterable) |
+| GET | /api/leaves/calendar | Team calendar this+next week |
+| POST | /api/leaves | Apply for leave |
+| DELETE | /api/leaves/:id | Cancel pending leave |
 
-### Users
-- GET /users → fetch users
-
----
-
-## 6. Component Structure (Frontend)
-
-- Login Page
-- Signup Page
-- Dashboard
-- Leave Request Form
-- Manager Panel
+### Managers
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | /api/managers/:id/requests | Get requests for manager |
+| PATCH | /api/managers/:id/requests/:lid/approve | Approve leave |
+| PATCH | /api/managers/:id/requests/:lid/reject | Reject leave |
 
 ---
 
-## 7. Key Features
+## 6. Frontend Structure
 
-- User authentication (Not yet implemented)
-- Role-based access (Employee / Manager) (Not yet implemented)
-- Leave request submission
-- Approval / rejection workflow
-- Simple dashboard view
+```text
+App.jsx → User switcher + routing
+├── Dashboard.jsx     → Leave balance cards + history table + filters
+├── ApplyLeave.jsx    → Leave form with working days auto-calc
+├── ManagerView.jsx   → Approve/reject table with comment modal
+└── Calendar.jsx      → Team calendar this week + next week
+
+Components:
+├── Navbar.jsx        → Responsive nav with hamburger menu
+└── LeaveCard.jsx     → Mobile card view for leave requests
+```
 
 ---
 
-## 8. What I Would Improve With More Time
+## 7. Key Design Decisions
 
-- Add JWT authentication
-- Add role-based route protection
-- Deploy backend (Render / Railway)
-- Deploy frontend (Vercel)
-- Improve UI/UX design
-- Add pagination and filters
+- **SQLite over PostgreSQL** — Zero setup time, perfect for a 20-person internal tool. Would migrate to PostgreSQL for scale.
+- **No auth** — Simulated via user dropdown for demo. JWT + middleware would be added in production.
+- **Working days calc on both client and server** — Client shows preview, server validates to prevent manipulation.
+- **Responsive design** — Cards on mobile, tables on desktop using Tailwind breakpoints.
+- **Seed script** — Clears and repopulates DB with 20 employees, 3 managers, 25 realistic leave requests.
+
+---
+
+## 8. What I Would Add With More Time
+
+- JWT authentication + protected routes
+- Role-based middleware on backend
+- Email notifications on approve/reject
+- Pagination for large datasets
+- Deploy backend on Render, frontend on Vercel
+- Unit tests for API endpoints
