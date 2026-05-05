@@ -108,12 +108,12 @@ Example endpoints:
 ### 1. Clone the Repository
 ```bash
 git clone https://github.com/hrishitabhandary/Leave-and-Time-Off-Tracker.git
-cd leave-tracker (as per your file path)
+cd Leave-and-Time-Off-Tracker
 ```
 
 ### 2. Setup Backend
 ```bash
-cd backend (as per your file path)
+cd Backend
 npm install
 node db/seed.js
 npm run dev
@@ -123,7 +123,7 @@ Backend runs on → http://localhost:5000
 ### 3. Setup Frontend
 Open a new terminal:
 ```bash
-cd frontend (as per your file path)
+cd Leave-and-Time-Off-Tracker/Frontend
 npm install
 npm run dev
 ```
@@ -212,6 +212,7 @@ leave-tracker/
 │   ├── index.html
 │   ├── package.json
 │   └── vite.config.js
-├── README.md
-└── ARCHITECTURE.md
+├── ARCHITECTURE.md          # System design & tech decisions
+├── PROMPTS.md               # AI prompts used to build this
+└── README.md                # Setup & documentation
 ```
