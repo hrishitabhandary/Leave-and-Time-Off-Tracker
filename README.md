@@ -98,41 +98,112 @@ Example endpoints:
 ---
 
 
+## 🚀 Getting Started
 
-# 1. Clone repository
-git clone https://github.com/your-username/leave-tracker.git
+### Prerequisites
+- Node.js v18+
+- npm
+
+---
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/yourusername/leave-tracker.git
 cd leave-tracker
+```
 
-# -------------------------
-# 2. BACKEND SETUP
-# -------------------------
-cd Backend
-
-# Install backend dependencies
-npm install express cors sqlite3 nodemon
-
-# Run backend server
-node server.js
-# OR (if using nodemon)
-npx nodemon server.js
-
-# Backend runs on:
-# http://localhost:5000
-
-
-# -------------------------
-# 3. FRONTEND SETUP (open new terminal)
-# -------------------------
-cd Frontend
-
-# Install frontend dependencies
-npm install react react-dom react-router-dom axios
-
-# Install UI framework (if used)
-npm install tailwindcss postcss autoprefixer
-
-# Start frontend
+### 2. Setup Backend
+```bash
+cd backend
+npm install
+node db/seed.js
 npm run dev
+```
+Backend runs on → http://localhost:5000
 
-# Frontend runs on:
-# http://localhost:5173
+### 3. Setup Frontend
+Open a new terminal:
+```bash
+cd frontend
+npm install
+npm run dev
+```
+Frontend runs on → http://localhost:5173
+
+---
+
+## 🧪 Test API via curl
+
+### Get all users
+```bash
+curl http://localhost:5000/api/users
+```
+
+### Get leave balance for a user
+```bash
+curl http://localhost:5000/api/users/{user_id}/balance
+```
+
+### Apply for leave
+```bash
+curl -X POST http://localhost:5000/api/leaves \
+  -H "Content-Type: application/json" \
+  -d '{
+    "user_id": "your-user-id",
+    "manager_id": "manager-id",
+    "leave_type_id": "leave-type-id",
+    "start_date": "2026-05-10",
+    "end_date": "2026-05-11",
+    "reason": "Personal work"
+  }'
+```
+
+### Get manager requests
+```bash
+curl http://localhost:5000/api/managers/{manager_id}/requests
+```
+
+### Approve a leave
+```bash
+curl -X PATCH http://localhost:5000/api/managers/{manager_id}/requests/{leave_id}/approve \
+  -H "Content-Type: application/json" \
+  -d '{"manager_comment": "Approved!"}'
+```
+
+### Reject a leave
+```bash
+curl -X PATCH http://localhost:5000/api/managers/{manager_id}/requests/{leave_id}/reject \
+  -H "Content-Type: application/json" \
+  -d '{"manager_comment": "Critical deadline"}'
+```
+
+### Team calendar
+```bash
+curl http://localhost:5000/api/leaves/calendar
+```
+
+---
+
+## 🗂️ Project Structure
+leave-tracker/
+├── backend/
+│   ├── db/
+│   │   ├── database.js      # SQLite setup & schema
+│   │   └── seed.js          # Seed 20 users + 25 leave requests
+│   ├── routes/
+│   │   ├── users.js         # User & balance endpoints
+│   │   ├── leaves.js        # Leave CRUD endpoints
+│   │   └── managers.js      # Approve/reject endpoints
+│   └── server.js            # Express entry point
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── Navbar.jsx
+│   │   │   └── LeaveCard.jsx
+│   │   ├── pages/
+│   │   │   ├── Dashboard.jsx
+│   │   │   ├── ApplyLeave.jsx
+│   │   │   ├── ManagerView.jsx
+│   │   │   └── Calendar.jsx
+│   │   └── App.jsx
+└── README.md 
