@@ -184,6 +184,7 @@ curl http://localhost:5000/api/leaves/calendar
 ---
 
 ## 🗂️ Project Structure
+```text
 leave-tracker/
 ├── backend/
 │   ├── db/
@@ -193,16 +194,24 @@ leave-tracker/
 │   │   ├── users.js         # User & balance endpoints
 │   │   ├── leaves.js        # Leave CRUD endpoints
 │   │   └── managers.js      # Approve/reject endpoints
+│   ├── package.json
 │   └── server.js            # Express entry point
 ├── frontend/
 │   ├── src/
 │   │   ├── components/
-│   │   │   ├── Navbar.jsx
-│   │   │   └── LeaveCard.jsx
+│   │   │   ├── Navbar.jsx   # Responsive navbar
+│   │   │   └── LeaveCard.jsx # Mobile card component
 │   │   ├── pages/
 │   │   │   ├── Dashboard.jsx
 │   │   │   ├── ApplyLeave.jsx
 │   │   │   ├── ManagerView.jsx
 │   │   │   └── Calendar.jsx
-│   │   └── App.jsx
-└── README.md 
+│   │   ├── App.jsx
+│   │   ├── main.jsx
+│   │   └── index.css
+│   ├── index.html
+│   ├── package.json
+│   └── vite.config.js
+├── README.md
+└── ARCHITECTURE.md
+```
