@@ -107,13 +107,13 @@ Example endpoints:
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/yourusername/leave-tracker.git
-cd leave-tracker
+git clone https://github.com/hrishitabhandary/Leave-and-Time-Off-Tracker.git
+cd leave-tracker (as per your file path)
 ```
 
 ### 2. Setup Backend
 ```bash
-cd backend
+cd backend (as per your file path)
 npm install
 node db/seed.js
 npm run dev
@@ -123,7 +123,7 @@ Backend runs on → http://localhost:5000
 ### 3. Setup Frontend
 Open a new terminal:
 ```bash
-cd frontend
+cd frontend (as per your file path)
 npm install
 npm run dev
 ```
